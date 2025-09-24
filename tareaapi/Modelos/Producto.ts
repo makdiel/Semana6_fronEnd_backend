@@ -5,6 +5,5 @@ export interface Producto{
     estado:string
     categoria:string
     precio:number
-    image_name:string
-    image_url:string
+   
 }

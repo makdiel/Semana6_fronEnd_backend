@@ -4,14 +4,14 @@ import { View, Text } from 'react-native'
 import { Producto } from '../Modelos/Producto'
 import { Picker } from '@react-native-picker/picker';
 
+
 export default function AgregarProductos() {
     const [NombreProducto, setNombreProducto] = useState('');
     const [DescripcionProducto, setDescripcionProducto] = useState('');
     const [Estado, setSelectEstado] = useState('');
     const [Categoria, setSelectCategoria] = useState('');
     const [Precio, setPrecio] = useState('');
-    const [ImageName, setImageName] = useState('');
-    const [ImageUrl, setImageUrl] = useState('');
+   
 
     // Datos predeterminados para la lista de selección
     const ListaCategorias = [
@@ -21,8 +21,6 @@ export default function AgregarProductos() {
         { label: 'Verduras', value: 'Verduras' },
         { label: 'Aseo', value: 'Aseo' },
     ];
-
-
 
     // Datos predeterminados para la lista de selección
     const ListaEstado = [
@@ -38,9 +36,8 @@ export default function AgregarProductos() {
             descripcion: DescripcionProducto,
             estado: Estado,
             categoria: Categoria,
-            precio: parseInt(Precio),
-            image_name: ImageName,
-            image_url: ImageUrl
+            precio: parseInt(Precio)
+          
         }
 
 
@@ -70,6 +67,7 @@ export default function AgregarProductos() {
 
             setPrecio(cleanText);
         };
+        
     return (
         <View style={styles.container}>
             <Text>Agregar Productos</Text>
