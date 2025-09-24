@@ -16,7 +16,7 @@ export default function Navegacion() {
 
             <tab.Screen name='Lista Alumnos' component={ListaAlumno}></tab.Screen>
             <tab.Screen name='Agregar Productos' component={AgregarProductos}></tab.Screen>
-             
+             <tab.Screen name='Agregar Alumnos' component={AgregarAlumnos}></tab.Screen>
         </tab.Navigator>
     </NavigationContainer>
    

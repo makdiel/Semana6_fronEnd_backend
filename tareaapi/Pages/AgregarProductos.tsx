@@ -1,10 +1,10 @@
-import { TextInput, Button, Alert ,StyleSheet } from 'react-native'
+import { TextInput, Button, Alert, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { View, Text } from 'react-native'
 import { Producto } from '../Modelos/Producto'
 import { Picker } from '@react-native-picker/picker';
 
-export default async function AgregarProductos() {
+export default function AgregarProductos() {
     const [NombreProducto, setNombreProducto] = useState('');
     const [DescripcionProducto, setDescripcionProducto] = useState('');
     const [Estado, setSelectEstado] = useState('');
@@ -22,50 +22,54 @@ export default async function AgregarProductos() {
         { label: 'Aseo', value: 'Aseo' },
     ];
 
+
+
     // Datos predeterminados para la lista de selección
     const ListaEstado = [
         { label: 'Seleccione un precio', value: '' },
         { label: 'Activo', value: 'Activo' },
         { label: 'Inactivo', value: 'Inactivo' },
     ];
+    async function agregarProducto() {
 
-    let producto:Producto={
-        idproducto: 0,
-        nombre : NombreProducto,
-        descripcion : DescripcionProducto,
-        estado : Estado,
-        categoria : Categoria,
-        precio :parseInt( Precio),
-        image_name : ImageName,
-        image_url : ImageUrl
+        let producto: Producto = {
+            idproducto: 0,
+            nombre: NombreProducto,
+            descripcion: DescripcionProducto,
+            estado: Estado,
+            categoria: Categoria,
+            precio: parseInt(Precio),
+            image_name: ImageName,
+            image_url: ImageUrl
+        }
+
+
+        const respuesta = await fetch('http://192.168.1.38:5000/producto', {
+            method: 'Post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(producto)
+        });
+        const respuestaApi = await respuesta.json()
+
+        if (respuestaApi) {
+            Alert.alert("ALumno agregado")
+        }
+        else {
+            Alert.alert('Ocurrio un error')
+        }
+       
     }
-    
+     const handlePrecioChange = (text: string) => {
+            // Eliminar cualquier cosa que no sea un número
+            const cleanText = text.replace(/[^0-9.]/g, '');
 
-    const respuesta = await fetch('http://192.168.1.38:5000/producto', {
-        method: 'Post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(producto)
-    });
-    const respuestaApi = await respuesta.json()
+            // Si el texto limpio tiene más de un punto decimal, lo elimina
+            if ((cleanText.match(/\./g) || []).length > 1) return;
 
-    if (respuestaApi) {
-        Alert.alert("ALumno agregado")
-    }
-    else {
-        Alert.alert('Ocurrio un error')
-    }
-    const handlePrecioChange = (text: string) => {
-        // Eliminar cualquier cosa que no sea un número
-        const cleanText = text.replace(/[^0-9.]/g, '');
-
-        // Si el texto limpio tiene más de un punto decimal, lo elimina
-        if ((cleanText.match(/\./g) || []).length > 1) return;
-
-        setPrecio(cleanText);
-    };
-
+            setPrecio(cleanText);
+        };
     return (
         <View style={styles.container}>
             <Text>Agregar Productos</Text>
@@ -80,9 +84,9 @@ export default async function AgregarProductos() {
                 onChangeText={setDescripcionProducto}
             ></TextInput>
 
-            
 
-             <Text style={styles.label}>Seleccione la categoria:</Text>
+
+            <Text style={styles.label}>Seleccione la categoria:</Text>
             <Picker
                 selectedValue={Estado}
                 onValueChange={(itemValue) => setSelectEstado(itemValue)}
@@ -92,7 +96,7 @@ export default async function AgregarProductos() {
                     <Picker.Item key={index} label={opcion.label} value={opcion.value} />
                 ))}
             </Picker>
-             <Text>Estado seleccionado: {Estado ? `$${Estado}` : 'Ninguno'}</Text>
+            <Text>Estado seleccionado: {Estado ? `$${Estado}` : 'Ninguno'}</Text>
 
             <Text style={styles.label}>Seleccione la categoria:</Text>
             <Picker
@@ -104,8 +108,8 @@ export default async function AgregarProductos() {
                     <Picker.Item key={index} label={opcion.label} value={opcion.value} />
                 ))}
             </Picker>
-             <Text>Categoria seleccionada: {Categoria ? `$${Categoria}` : 'Ninguno'}</Text>
-            
+            <Text>Categoria seleccionada: {Categoria ? `$${Categoria}` : 'Ninguno'}</Text>
+
             <TextInput placeholder='Precio'
                 value={Precio}
                 onChangeText={handlePrecioChange}
@@ -120,25 +124,25 @@ export default async function AgregarProductos() {
             ></TextInput>
 
 
-            <Button title='Agregar Producto' onPress={AgregarProductos}></Button>
+            <Button title='Agregar Producto' onPress={agregarProducto}></Button>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  picker: {
-    height: 50,
-    width: 200,
-    marginBottom: 20,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    label: {
+        fontSize: 18,
+        marginBottom: 10,
+    },
+    picker: {
+        height: 50,
+        width: 200,
+        marginBottom: 20,
+    },
 });

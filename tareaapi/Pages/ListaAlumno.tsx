@@ -8,7 +8,7 @@ export default function ListaAlumno() {
 
     async function listarAlumnos() {
 
-        const response = await fetch('http://192.168.5.44:5000/alumno', {
+        const response = await fetch('http://192.168.1.38:5000/alumno', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
