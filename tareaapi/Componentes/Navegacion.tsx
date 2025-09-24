@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import ListaAlumno from '../Pages/ListaAlumno';
 import AgregarAlumnos from '../Pages/AgregarAlumnos';
 import AgregarProductos from '../Pages/AgregarProductos';
+import ListarProductos from '../Pages/ListarProductos';
 
 export default function Navegacion() {
 
@@ -14,9 +15,11 @@ export default function Navegacion() {
     <NavigationContainer>
         <tab.Navigator>
 
-            <tab.Screen name='Lista Alumnos' component={ListaAlumno}></tab.Screen>
+           
             <tab.Screen name='Agregar Productos' component={AgregarProductos}></tab.Screen>
+             <tab.Screen name='Lista Productos' component={ListarProductos}></tab.Screen>
              <tab.Screen name='Agregar Alumnos' component={AgregarAlumnos}></tab.Screen>
+              <tab.Screen name='Lista Alumnos' component={ListaAlumno}></tab.Screen>
         </tab.Navigator>
     </NavigationContainer>
    
