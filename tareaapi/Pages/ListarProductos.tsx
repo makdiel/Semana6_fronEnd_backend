@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList,TouchableOpacity ,StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Producto } from '../Modelos/Producto';
 
@@ -28,18 +28,19 @@ export default function ListarProductos() {
 
   return (
     <View>
-      <Text>ListarProductos</Text>
+       <TouchableOpacity onPress={listarProductos}>
+        <Text>Actualizar Lista</Text>
+             
        {
                       listaProducto.length == 0 ? (
                           <Text>Informacion Cargando</Text>
                       )
-                          : (
-      
+                          : (   
                               <FlatList data={listaProducto}
                                   keyExtractor={(item) => item.idproducto.toString()}
                                   renderItem={({ item }) =>
-                                      <View>
-                                          <Text>Nombre: {item.nombre}</Text>
+                                      <View style={styles.container}>
+                                          <Text style={styles.label}>Nombre: {item.nombre}</Text>
                                           <Text>Descr: {item.descripcion}</Text>
                                           <Text>Categoria : {item.categoria}</Text>
                                            <Text>Precio : {item.precio}</Text>
@@ -48,10 +49,29 @@ export default function ListarProductos() {
       
                                   }
                               >
-      
                               </FlatList>
                           )
                   }
+                
+      </TouchableOpacity>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    label: {
+        fontSize: 18,
+        marginBottom: 10,
+    },
+    picker: {
+        height: 50,
+        width: 200,
+        marginBottom: 20,
+    },
+});

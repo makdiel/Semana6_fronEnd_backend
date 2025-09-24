@@ -51,7 +51,7 @@ export default function AgregarProductos() {
         const respuestaApi = await respuesta.json()
 
         if (respuestaApi) {
-            Alert.alert("ALumno agregado")
+            Alert.alert("Producto agregado")
         }
         else {
             Alert.alert('Ocurrio un error')
